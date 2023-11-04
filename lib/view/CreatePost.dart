@@ -8,9 +8,14 @@ import 'package:post/values/strings.dart';
 import 'package:post/view/HomeScreen.dart';
 
 
-class CreatePost extends StatelessWidget {
+class CreatePost extends StatefulWidget {
   const CreatePost({super.key});
 
+  @override
+  State<CreatePost> createState() => _CreatePostState();
+}
+
+class _CreatePostState extends State<CreatePost> {
   @override
   Widget build(BuildContext context) {
     final PostController postController = Get.put(PostController());
@@ -44,6 +49,7 @@ class CreatePost extends StatelessWidget {
                       Get.to(()=> const HomeScreen());
                     },),
                     TextField(
+                      controller: addPostController,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                           hintText: whatYouThinkAbout,
@@ -64,7 +70,9 @@ class CreatePost extends StatelessWidget {
                     ),
                     backgroundColor: MaterialStateProperty.all(secondary),
                   ),
-                  onPressed: (){
+                      onPressed: () {
+                    CircularProgressIndicator(color: main_color_4,);
+                      Navigator.of(context).pop();
                     // postController.addPost();
               }, child: const Text(postLabel,
                 style: TextStyle(

@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:post/controller/PostController.dart';
+import 'package:post/model/User.dart';
 import 'package:post/values/dimens.dart';
 import 'package:post/values/strings.dart';
 
 import '../values/colors.dart';
 
-class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+class ProfileScreen extends StatelessWidget {
+  final User user;
+  const ProfileScreen(this.user);
 
 
-  @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final PostController postController = Get.put(PostController());
@@ -47,10 +44,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   SizedBox(
                     height: dimen30,
                   ),
-                  Text(postController.users.toString()),
+                  Text(user.name,style: TextStyle(
+                      color: main_color_4,fontWeight: FontWeight.w500)),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
                     children: [
                       SizedBox(
                         height: dimen30,
@@ -77,40 +75,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       borderRadius: BorderRadius.circular(dimen20),
                     ),
                     padding: const EdgeInsets.all(dimen10),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Icon(Icons.email_outlined, color: bg_color,),
-                            Text('mariam@gmail.com', style: TextStyle(
-                                color: bg_color),),
-                            SizedBox(
-                              height: dimen30,
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Icon(Icons.email_outlined, color: bg_color,),
-                            Text('mariam@gmail.com', style: TextStyle(
-                                color: bg_color),),
-                            SizedBox(
-                              height: dimen30,
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Icon(Icons.email_outlined, color: bg_color,),
-                            Text('mariam@gmail.com', style: TextStyle(
-                                color: bg_color),),
-                            SizedBox(
-                              height: dimen30,
-                            ),
-                          ],
-                        ),
-
-                      ],
+                    child: Padding(
+                      padding: EdgeInsets.all(dimen20),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Icon(Icons.person_2_outlined, color: bg_color,),
+                              Text(user.name, style: TextStyle(
+                                  color: bg_color),),
+                            ],
+                          ),
+                          SizedBox(
+                            height: dimen30,
+                          ),
+                          Row(
+                            children: [
+                              Icon(Icons.phone_android_outlined, color: bg_color,),
+                              Text(user.phone, style: TextStyle(
+                                  color: bg_color),),
+                            ],
+                          ),
+                          SizedBox(
+                            height: dimen30,
+                          ),
+                          Row(
+                            children: [
+                              Icon(Icons.email_outlined, color: bg_color,),
+                              Text(user.email, style: TextStyle(
+                                  color: bg_color),),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   )
                 ],

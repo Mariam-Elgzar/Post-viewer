@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
               Expanded(
                 child: Obx(() {
                   if (postController.isLoading.value)
-                    return Center(child: CircularProgressIndicator());
+                    return Center(child: CircularProgressIndicator(color: main_color_4,));
                   else
                     return ListView.builder(
                       itemCount: postController.postList.length,

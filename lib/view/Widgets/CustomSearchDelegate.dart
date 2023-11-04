@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:post/controller/PostController.dart';
 import 'package:post/model/Posts.dart';
+import 'package:post/model/User.dart';
 import 'package:post/values/colors.dart';
 import 'package:post/view/HomeScreen.dart';
 
 class CustomSearchDelegate extends SearchDelegate{
   final PostController postListController = Get.put(PostController());
-  List<Posts> searchTerms = [];
+  List<User> user = [];
+  // List<Posts> searchTerms = [];
   @override
   List<Widget> buildActions(BuildContext context){
+    // searchTerms = postListController.postList;
     return [
       IconButton(onPressed: (){
         query = '';
@@ -20,13 +23,14 @@ class CustomSearchDelegate extends SearchDelegate{
   @override Widget buildLeading(BuildContext context){
     return IconButton(
         onPressed: (){
-          Get.to(()=> HomeScreen());
+          Navigator.of(context).pop();
         },
         icon: const Icon(Icons.arrow_back_ios_rounded, color: main_color_4,));
   }
   @override Widget buildResults(BuildContext context){
+    // searchTerms = postListController.postList;
     List<Posts> matchQuery = [];
-    for( var i in searchTerms){
+    for( var i in postListController.postList){
       if(i.toString().toLowerCase().contains(query.toLowerCase())){
         matchQuery.add(i);
       }
@@ -35,24 +39,25 @@ class CustomSearchDelegate extends SearchDelegate{
       itemBuilder: (context, index){
         var result = matchQuery[index];
         return ListTile(
-          title: Text(result as String),
+          title: Text(result.title),
         );
       },
     itemCount: matchQuery.length,
     );
   }
   @override Widget buildSuggestions(BuildContext context){
+    // searchTerms = postListController.postList;
     List<Posts> matchQuery = [];
-    for( var mm in searchTerms){
-      if(mm.toString().toLowerCase().contains(query.toLowerCase())){
-        matchQuery.add(mm);
+    for( var i in postListController.postList){
+      if(i.toString().toLowerCase().contains(query.toLowerCase())){
+        matchQuery.add(i);
       }
     }
     return ListView.builder(
       itemBuilder: (context, index){
         var result = matchQuery[index];
         return ListTile(
-          title: Text(result as String),
+          title: Text(result.title),
         );
       },
       itemCount: matchQuery.length,

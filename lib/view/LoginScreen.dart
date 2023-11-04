@@ -24,11 +24,10 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState(){
     super.initState();
     passwordVisible = true;
+
   }
   @override
   Widget build(BuildContext context) {
-    final PostController postController = Get.put(PostController());
-
     final LoginController controller = Get.put(LoginController());
     return Scaffold(
       backgroundColor: bg_color,
@@ -145,8 +144,30 @@ class _LoginScreenState extends State<LoginScreen> {
                       backgroundColor: MaterialStateProperty.all(secondary),
                     ),
                       onPressed: (){
-                      controller.checkLogin();
-                      Get.to(() => const HomeScreen());
+                        if (controller.validateUsername(controller.usernameController.text) &&
+                            controller.isValidEmail(controller.emailController.text) &&
+                            controller.isValidPassword(controller.passwordController.text)) {
+                          Get.to(() => const HomeScreen());
+                        } else {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text(alert),
+                                content:Text(checkTheField),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text(close),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
+
                       },
                       child: const Text(
                         login,

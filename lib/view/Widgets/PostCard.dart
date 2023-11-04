@@ -47,7 +47,8 @@ class PostCard extends StatelessWidget {
                               ),
                             ),
                             onTap: (){
-                              Get.to(() => ProfileScreen());
+
+                              Get.to(() => ProfileScreen(post.user!));
                             },
                           ),
                           Text(
